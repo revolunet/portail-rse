@@ -71,6 +71,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "entreprises.context_processors.current_entreprise",
+                "impact.context_processors.crisp_website_id",
             ],
         },
     },
@@ -176,3 +177,6 @@ if SENTRY_DSN:
         send_default_pii=True,
         environment=os.getenv("SENTRY_ENV", "production"),
     )
+
+# Crisp
+CRISP_WEBSITE_ID = os.getenv("CRISP_WEBSITE_ID")
