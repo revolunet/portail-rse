@@ -45,13 +45,13 @@ if (estInteretPublicFieldElement) {
   })
 }
 
-const SimulationFormElement = document.getElementById("svelte-search-entreprise-in-simulation-form")
-if (SimulationFormElement) {
+const simulationFormElement = document.getElementById("svelte-search-entreprise-in-simulation-form")
+if (simulationFormElement) {
   new SimulationForm({
-    target: SimulationFormElement,
+    target: simulationFormElement,
     props: {
-      siren: SimulationFormElement.dataset.siren,
-      denomination: SimulationFormElement.dataset.denomination
+      siren: simulationFormElement.dataset.siren,
+      denomination: simulationFormElement.dataset.denomination
     },
     hydrate: true,
   })
@@ -68,9 +68,9 @@ if (denominationEntrepriseElement) {
   })
 }
 
-const VoirPlusMoinsElement = document.getElementById("svelte-voir-plus-moins")
-if (VoirPlusMoinsElement) {
+const voirPlusMoinsElement = document.getElementById("svelte-voir-plus-moins")
+if (voirPlusMoinsElement) {
   new SeeMoreOrLess({
-    target: VoirPlusMoinsElement
+    target: voirPlusMoinsElement
   })
 }
