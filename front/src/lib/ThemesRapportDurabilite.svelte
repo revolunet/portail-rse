@@ -1,3 +1,21 @@
+<script>
+let environnement = {
+    "titre": "ESRS E1 - Changement climatique",
+    "etat": false,
+    "sousThemes": {
+        "adaptation": false,
+        "attenuation": false,
+        "energie": false
+    }
+}
+
+function handleClick(theme) {
+	console.log(theme)
+    environnement.sousThemes[theme] = ! environnement.sousThemes[theme]
+    console.log(environnement)
+}
+</script>
+
 <div class="fr-grid-row fr-grid-row--gutters rse-organizer">
     <div class="fr-col-12">
         <div class="rse-organizer--container rse-organizer--gov">
@@ -36,13 +54,14 @@
                 <div class="rse-organizer--esrs">
                     <button class="rse-organizer--card" title="Dérouler les sous-thèmes" aria-expanded="false" aria-controls="accordion-ESRS-E1">
                         <div class="rse-organizer--card-title">
-                            <b>ESRS E1 - Changement climatique</b>
+                            <input name="checkboxes-23" id="checkboxes-23" type="checkbox" aria-describedby="checkboxes-23-messages">
+                            <b>{ environnement.titre }</b>
                         </div>
                         <div class="rse-organizer--card-themes">
-                            <ul class="fr-collapse fr-text--sm" id="accordion-ESRS-E1">
-                                <li>Adaptation au changement climatique</li>
-                                <li>Atténuation du changement climatique</li>
-                                <li>Energie</li>
+                            <ul class="fr-text--sm" id="accordion-ESRS-E1">
+                                <li><input name="checkboxes4" id="checkboxes4id" type="checkbox" aria-describedby="checkboxes-4-messages" on:click={() =>handleClick("adaptation")}> Adaptation au changement climatique</li>
+                                <li><input name="checkboxes5" id="checkboxes5id" type="checkbox" aria-describedby="checkboxes-5-messages" on:click={() =>handleClick("attenuation")}> Atténuation du changement climatique</li>
+                                <li><input name="checkboxes6" id="checkboxes6id" type="checkbox" aria-describedby="checkboxes-6-messages" on:click={() =>handleClick("energie")}> Energie</li>
                             </ul>
                         </div>
                     </button>
