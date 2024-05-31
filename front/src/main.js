@@ -5,6 +5,7 @@ import InteretPublicField from './lib/InteretPublicField.svelte'
 import SimulationForm from './lib/SimulationForm.svelte'
 import SearchEntreprise from './lib/SearchEntreprise.svelte'
 import SeeMoreOrLess from './lib/SeeMoreOrLess.svelte'
+import ThemesRapportDurabilite from './lib/ThemesRapportDurabilite.svelte'
 
 for (let externalFieldToggle of document.getElementsByClassName("svelte-external-field-toggle")) {
   new ExternalFieldToggle({
@@ -72,5 +73,12 @@ const voirPlusMoinsElement = document.getElementById("svelte-voir-plus-moins")
 if (voirPlusMoinsElement) {
   new SeeMoreOrLess({
     target: voirPlusMoinsElement
+  })
+}
+
+const themesRapportDurabilite = document.getElementById("svelte-themes-rapport-durabilite")
+if (themesRapportDurabilite) {
+  new ThemesRapportDurabilite({
+    target: themesRapportDurabilite
   })
 }
