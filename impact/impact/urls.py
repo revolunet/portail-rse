@@ -25,6 +25,7 @@ def trigger_error(request):
 
 
 urlpatterns = [
+    path("api/", include("api_interne.urls")),
     path("", include("public.urls")),
     path("", include("entreprises.urls")),
     path("", include("reglementations.urls")),

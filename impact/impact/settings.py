@@ -32,6 +32,7 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "0.0.0.0,127.0.0.1").split(",")
 # Application definition
 INSTALLED_APPS = [
     "api",
+    "api_interne",
     "entreprises",
     "habilitations",
     "metabase",
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django_vite",
     "anymail",
+    "rest_framework",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
