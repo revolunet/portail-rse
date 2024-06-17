@@ -7,6 +7,7 @@ from django import forms
 from django.conf import settings
 from django.db import models
 
+from .csrd import CSRD  # noqa
 from entreprises.models import Entreprise
 from utils.models import TimestampedModel
 
