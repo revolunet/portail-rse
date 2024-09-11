@@ -11,6 +11,7 @@ class RapportCSRD(TimestampedModel):
     habilitation = models.ForeignKey(
         "habilitations.Habilitation", on_delete=models.CASCADE, related_name="rapports"
     )
+    entreprise = models.ForeignKey("entreprises.Entreprise", on_delete=models.CASCADE)
 
     annee = models.PositiveIntegerField(
         verbose_name="année du rapport CSRD", validators=[MinValueValidator(2024)]
@@ -102,3 +103,11 @@ class Enjeu(TimestampedModel):
 
     def __str__(self):
         return f"{self.esrs} - {self.nom}"
+
+
+def rapport_csrd_officiel(entreprise):  # ajouter l'année ?
+    return RapportCSRD.objects.filter(entreprise=entreprise).first()
+
+
+def rapport_csrd_personnel(habilitation):  # ajouter l'année ?
+    return RapportCSRD.objects.filter(habilitation=habilitation).first()
