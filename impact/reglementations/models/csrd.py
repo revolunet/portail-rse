@@ -71,13 +71,10 @@ class RapportCSRD(TimestampedModel):
                 )
                 tmp_enjeux.append(ne)
 
-            if not enjeu.children:
-                return
-
-            _add_enjeux(enjeu.children, ne)
+                if enjeu.children:
+                    _add_enjeux(enjeu.children, ne)
 
         _add_enjeux(ENJEUX_NORMALISES)
-
         return tmp_enjeux
 
     def clean(self):
