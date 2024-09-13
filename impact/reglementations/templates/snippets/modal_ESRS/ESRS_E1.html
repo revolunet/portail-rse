@@ -17,16 +17,7 @@
                                                 </strong>
                                             </p>
 
-                                            <div>
-                                                <ol>
-                                                    {% for enjeu in csrd.enjeux.all %}
-                                                        {% if enjeu.esrs == "ESRS_E1" %}
-                                                            <li>{{ enjeu.nom }}</li>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </ol>
-                                            </div>
-                                            <hr>
+                                            {% include "snippets/modal_ESRS/enjeux.html" with esrs="ESRS_E1" %}
 
                                             <div>
                                                 <ol>

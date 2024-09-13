@@ -38,10 +38,18 @@ ENJEUX_NORMALISES = [
     EnjeuNormalise(
         esrs=ESRS.ESRS_E1,
         nom="Adaptation au changement climatique",
-        description="whatever",
+        description="L’adaptation au changement climatique renvoie au processus d’adaptation de l’entreprise au changement climatique réel et attendu",
     ),
-    EnjeuNormalise(esrs=ESRS.ESRS_E1, nom="Atténuation du changement climatique"),
-    EnjeuNormalise(esrs=ESRS.ESRS_E1, nom="Énergie"),
+    EnjeuNormalise(
+        esrs=ESRS.ESRS_E1,
+        nom="Atténuation du changement climatique",
+        description="L’atténuation du changement climatique se réfère aux efforts de l’entreprise en faveur du processus général consistant à limiter l’élévation de la température moyenne de la planète à 1,5° C par rapport aux niveaux préindustriels, conformément à l’accord de Paris. La présente norme couvre les exigences de publication liées, notamment, aux sept gaz à effet de serre (GES) que sont le dioxyde de carbone (CO2), le méthane (CH4), le protoxyde d’azote (N2O), les hydrofluorocarbures (HFC), les hydrocarbures perfluorés (PFC), l’hexafluorure de soufre (SF6) et le trifluorure d’azote (NF3). Elle couvre également les exigences de publication portant sur la manière dont l’entreprise gère ses émissions de GES ainsi que les risques de transition qui y sont associés",
+    ),
+    EnjeuNormalise(
+        esrs=ESRS.ESRS_E1,
+        nom="Énergie",
+        description="Les exigences de publication relatives à l’« énergie » couvrent toutes les formes de production et de consommation d’énergie.",
+    ),
     # Structure hiérarchisée :
     EnjeuNormalise(
         esrs=ESRS.ESRS_E4,
@@ -58,8 +66,8 @@ ENJEUX_NORMALISES = [
             EnjeuNormalise(esrs=ESRS.ESRS_E4, nom="Autres"),
         ],
     ),
+    EnjeuNormalise(esrs=ESRS.ESRS_E4, nom="Incidence sur l'état des espèces"),
+    EnjeuNormalise(
+        esrs=ESRS.ESRS_E4, nom="Incidence sur l'étendue et l'état des écosystèmes"
+    ),
 ]
-
-"""
-
-"""

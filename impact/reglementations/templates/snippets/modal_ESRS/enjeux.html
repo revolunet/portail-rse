@@ -1,0 +1,30 @@
+<div>
+    <ol>
+        {% for enjeu in csrd.enjeux.all %}
+            {% if enjeu.esrs == esrs and not enjeu.parent %}
+                <li>
+                    <strong>{{ enjeu.nom }}</strong>
+                    {% if enjeu.description %}
+                        <button class="fr-btn--tooltip fr-btn" aria-expanded="false" aria-controls="{{ esrs}}-soustheme{{ enjeu.ordre }}">
+                            Définition annexe
+                        </button>
+                    {% endif %}
+                    <ol>
+                        {% for sous_enjeu in csrd.enjeux.all %}
+
+                            {% if sous_enjeu.parent == enjeu %}
+                                <li>{{ sous_enjeu.nom }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </li>
+                {% if enjeu.description %}
+                    <p class="fr-text--sm fr-collapse" id="{{ esrs}}-soustheme{{ enjeu.ordre }}">
+                        {{ enjeu.description }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ol>
+</div>
+<hr>
