@@ -158,5 +158,7 @@ def rapport_csrd_officiel(entreprise):  # ajouter l'année ?
     return RapportCSRD.objects.filter(entreprise=entreprise).first()
 
 
-def rapport_csrd_personnel(habilitation):  # ajouter l'année ?
-    return RapportCSRD.objects.filter(habilitation=habilitation).first()
+def rapport_csrd_personnel(entreprise, proprietaire):  # ajouter l'année ?
+    return RapportCSRD.objects.filter(
+        entreprise=entreprise, proprietaire=proprietaire
+    ).first()

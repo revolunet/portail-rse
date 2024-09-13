@@ -17,6 +17,7 @@ from entreprises.models import CaracteristiquesAnnuelles
 from entreprises.models import Entreprise
 from entreprises.views import get_current_entreprise
 from habilitations.models import is_user_attached_to_entreprise
+from reglementations.models import RapportCSRD
 from reglementations.views.base import Reglementation
 from reglementations.views.base import ReglementationAction
 from reglementations.views.base import ReglementationStatus
@@ -469,11 +470,15 @@ def csrd(request, siren=None, phase=0, etape=0, sous_etape=0):
     except TemplateDoesNotExist:
         raise Http404
 
+    csrd, _ = RapportCSRD.objects.get_or_create(
+        entreprise=entreprise, proprietaire=request.user, annee=2024
+    )
     context = {
         "entreprise": entreprise,
         "phase": phase,
         "etape": etape,
         "sous_etape": sous_etape,
+        "csrd": csrd,
     }
 
     return HttpResponse(template.render(context, request))

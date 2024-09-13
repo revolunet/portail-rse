@@ -8,6 +8,26 @@
                             <div class="fr-modal__content">
                                 <p class="fr-tag fr-mb-1w">Environnement</p>
                                 <h4>ESRS E4 - Biodiversité et écosystèmes</h4>
+
+                                <div>
+                                    <ol>
+                                        {% for enjeu in csrd.enjeux.all %}
+                                            {% if enjeu.esrs == "ESRS_E4" and not enjeu.parent %}
+                                                <li><strong>{{ enjeu.nom }}</strong>
+                                                    <ol>
+                                                        {% for sous_enjeu in csrd.enjeux.all %}
+                                                            {% if sous_enjeu.esrs == "ESRS_E4" and sous_enjeu.parent == enjeu %}
+                                                                <li>{{ sous_enjeu.nom }}</li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ol>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ol>
+                                </div>
+                                <hr>
+
                                 <div class="fr-container--fluid">
                                     {% if phase == 1 %}
                                         <div class="fr-grid-row">

@@ -16,6 +16,18 @@
                                                     Choisissez les enjeux de durabilité qui ont une incidence réelle et potentielle appliquée à votre entreprise
                                                 </strong>
                                             </p>
+
+                                            <div>
+                                                <ol>
+                                                    {% for enjeu in csrd.enjeux.all %}
+                                                        {% if enjeu.esrs == "ESRS_E1" %}
+                                                            <li>{{ enjeu.nom }}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ol>
+                                            </div>
+                                            <hr>
+
                                             <div>
                                                 <ol>
                                                     <li>
