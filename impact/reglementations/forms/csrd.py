@@ -6,7 +6,7 @@ from reglementations.models.csrd import RapportCSRD
 class RapportPersonnelCSRDForm(forms.ModelForm):
     class Meta:
         model = RapportCSRD
-        fields = ["habilitation", "annee", "description"]
+        fields = ["entreprise", "proprietaire", "annee", "description"]
 
 
 class RapportOfficielCSRDForm(forms.ModelForm):

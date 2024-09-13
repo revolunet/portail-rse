@@ -1,4 +1,5 @@
 import django.db.models as models
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 
 from ..enums import EnjeuNormalise
@@ -7,12 +8,31 @@ from ..enums import ESRS
 from utils.models import TimestampedModel
 
 
-class RapportCSRD(TimestampedModel):
-    habilitation = models.ForeignKey(
-        "habilitations.Habilitation", on_delete=models.CASCADE, related_name="rapports"
-    )
-    entreprise = models.ForeignKey("entreprises.Entreprise", on_delete=models.CASCADE)
+class RapportCSRDQuerySet(models.QuerySet):
+    def annee(self, annee: int):
+        return self.filter(annee=annee)
 
+    def principaux(self):
+        return self.filter(proprietaire=None)
+
+    def personnels(self):
+        return self.exclude(proprietaire=None)
+
+    ...
+
+
+class RapportCSRD(TimestampedModel):
+    entreprise = models.ForeignKey(
+        "entreprises.Entreprise",
+        on_delete=models.CASCADE,
+        related_name="rapports_csrd",
+    )
+    proprietaire = models.ForeignKey(
+        "users.User",
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="propriétaire rapport CSRD personnel",
+    )
     annee = models.PositiveIntegerField(
         verbose_name="année du rapport CSRD", validators=[MinValueValidator(2024)]
     )
@@ -20,15 +40,18 @@ class RapportCSRD(TimestampedModel):
         verbose_name="description du rapport CSRD", blank=True
     )
 
+    objects = RapportCSRDQuerySet.as_manager()
+
     class Meta:
         verbose_name = "rapport CSRD"
-        unique_together = [["annee", "habilitation"]]
+        unique_together = [["annee", "entreprise", "proprietaire"]]
         indexes = [models.Index(fields=["annee"])]
 
     def __str__(self):
-        return f"CRSD {self.annee} - {self.habilitation}"
+        return f"CRSD {self.annee} - {self.entreprise}"
 
     def _init_enjeux(self):
+        # ajoute les enjeux "réglementés" lors de la création de l'instance
         if self.pk:
             # uniquement pour la création initiale de l'objet
             return
@@ -57,13 +80,39 @@ class RapportCSRD(TimestampedModel):
 
         return tmp_enjeux
 
+    def clean(self):
+        # La vérification du rapport principal pourrait être faite par une contrainte (complexe)
+        # en base de données, mais le fait d'utiliser une validation métier vérifiable
+        # à tout moment est plus simple et plus lisible.
+        already_exists = RapportCSRD.objects.filter(
+            proprietaire=None, entreprise=self.entreprise
+        ).exists()
+
+        if not self.proprietaire and already_exists:
+            raise ValidationError(
+                "Il existe déjà un rapport CSRD principal pour cette entreprise"
+            )
+
+        if self.pk and already_exists and self.proprietaire:
+            raise ValidationError(
+                "Impossible de modifier le rapport CSRD principal en rapport personnel"
+            )
+
+        ...
+
     def save(self, *args, **kwargs):
         enjeux = self._init_enjeux()
 
+        # on vérifie systématiquement les contraintes métiers avant la sauvegarde
+        self.clean()
         super().save(*args, **kwargs)
 
         if enjeux:
             self.enjeux.add(*enjeux, bulk=False)
+
+    def is_principal(self):
+        # le rapport CSRD n'a un propriétaire que si c'est un rapport personnel
+        return self.pk and not self.proprietaire
 
 
 class EnjeuQuerySet(models.QuerySet):
